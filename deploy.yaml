@@ -1,1 +1,47 @@
 ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: fastapi
+  name: fastapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastapi
+  template:
+    metadata:
+      labels:
+        app: fastapi
+    spec:
+      volumes:
+        - name: vol-log
+          emptyDir: {}
+        - name: vol-secret-fluentd
+          secret:
+            secretName: fluentd
+      containers:
+        - name: fastapi
+          image: treekat71/k8s-challenge:0.2
+          command:
+            - "/venv/bin/uvicorn"
+            - "main:app"
+            - "--host"
+            - "0.0.0.0"
+          volumeMounts:
+          - name: vol-log
+            mountPath: /app/log
+
+        - name: log-collector
+          image: treekat71/fluentd-s3:0.3
+          env:
+            - name: FLUENTD_CONF
+              value: fluentd.conf
+          volumeMounts:
+            - name: vol-log
+              mountPath: /log
+              readOnly: true
+            - name: vol-secret-fluentd
+              mountPath: /fluentd/etc
+              readOnly: true
