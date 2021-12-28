@@ -23,7 +23,7 @@ spec:
             secretName: fluentd
       containers:
         - name: fastapi
-          image: treekat71/k8s-challenge:0.2
+          image: treekat71/k8s-challenge:latest
           command:
             - "/venv/bin/uvicorn"
             - "main:app"
@@ -34,7 +34,7 @@ spec:
             mountPath: /app/log
 
         - name: log-collector
-          image: treekat71/fluentd-s3:0.3
+          image: treekat71/fluentd-s3:1.0
           env:
             - name: FLUENTD_CONF
               value: fluentd.conf
