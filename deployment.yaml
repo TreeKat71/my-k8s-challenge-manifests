@@ -6,7 +6,7 @@ metadata:
     app: fastapi
   name: fastapi
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: fastapi
@@ -24,11 +24,6 @@ spec:
       containers:
         - name: fastapi
           image: treekat71/k8s-challenge:latest
-          command:
-            - "/venv/bin/uvicorn"
-            - "main:app"
-            - "--host"
-            - "0.0.0.0"
           volumeMounts:
           - name: vol-log
             mountPath: /app/log
