@@ -6,9 +6,9 @@ metadata:
   name: fastapi
 spec:
   ports:
-  - port: 80
+  - port: 8000
     protocol: TCP
     targetPort: 8000
   selector:
     app: fastapi
-  type: LoadBalancer
+  type: ClusterIP
