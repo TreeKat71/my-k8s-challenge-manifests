@@ -2,7 +2,15 @@
 
 
 - `fluentd.conf` is just a sample
-- service type is loadbalancer
+- Ingress controller and service
+    - installed by `1-CLICK APPS`
+    - service type is Loadbalancer
+
+| App       | Endpoint      |
+| --------  | -----------   |
+| Fastapi   | /fastapi      |
+| ArgoCD    | /argocd       |
+
 
 Found mistakes?
 ------------
