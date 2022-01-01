@@ -23,7 +23,7 @@ spec:
             secretName: fluentd
       containers:
         - name: fastapi
-          image: treekat71/k8s-challenge:latest
+          image: treekat71/k8s-challenge:1.0
           volumeMounts:
             - name: vol-log
               mountPath: /app/log
