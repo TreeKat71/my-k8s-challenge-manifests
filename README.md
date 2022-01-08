@@ -1,15 +1,50 @@
 # DigitalOcean Kubernetes Challenge - k8s manifests for ArgoCD
 
+1. Create `DigitalOcean Kubernetes` (DOKS)
 
-- `fluentd.conf` is just a sample
-- Ingress controller and service
-    - installed by `1-CLICK APPS`
-    - service type is Loadbalancer
+    ![image](asset/DOKS.png)
 
-| App       | Endpoint      |
-| --------  | -----------   |
-| Fastapi   | /fastapi      |
-| ArgoCD    | /argocd       |
+2. Install `ingress controller` by `1-CLICK APPS`
+
+    ![image](asset/ingress-controller.png)
+
+3. Setup `Github actions` for CI
+
+        $ mkdir .github/workflows
+        # And then put your CI pipeline.yaml under this folder
+
+3. Setup `ArgoCD` for CD
+
+    https://github.com/TreeKat71/my-k8s-challenge/tree/main/argocd
+
+4. Create bucket for `logs`
+
+    ![image](asset/space.png)
+
+5. Create secret for fluentd sidecar
+
+        $ kubectl create secret generic fluentd --from-file=fluentd.conf
+
+The fluentd.conf should contain keys for `Spaces` so there should be a way to handle secret. I just put the sample config in the repo. It is better to handle it with `Vault` or sth else.
+
+4. Config `ingress` and `app` for `ArgoCD`
+
+        $ kubectl apply -f argocd/
+
+
+5. Deploy `fastapi`
+
+    Now, you can manually sync it by clicking button.
+    ![image](asset/argocd.png)
+
+6. Play around the `fastapi`
+
+    ![image](asset/fastapi.png)
+
+7. See logs are collected to `Spaces`
+
+    ![image](asset/logs.png)
+
 
 
 Found mistakes?
