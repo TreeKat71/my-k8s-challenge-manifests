@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  namespace: harbor
+  name: harbor-ingress-tls
+  labels:
+    app: harbor
+data:
+  ca.crt: This_is_just_sample
+  tls.crt: This_is_just_sample
+  tls.key: This_is_just_sample
+type: kubernetes.io/tls
